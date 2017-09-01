@@ -10,7 +10,9 @@ process.stdout.write(`
         ${process.argv.slice(2).map(inFile => {
           const inGpx = fs.readFileSync(inFile);
           const inGpx$ = cheerio.load(inGpx, {xmlMode: true});
-          return inGpx$.xml(inGpx$('trkpt'));
+          const outGpx = inGpx$.xml(inGpx$('trkpt'));
+          process.stderr.write('.');
+          return outGpx;
         })}
       </trkseg>
     </trk>
