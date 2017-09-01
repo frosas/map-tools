@@ -1,7 +1,10 @@
 #!/usr/bin/env node
 
 const fs = require('fs');
+const cheerio = require('cheerio');
 
 const inputFile = process.argv[2];
-const gpx = fs.readFileSync(inputFile);
-process.stdout.write(gpx);
+const inputGpx = fs.readFileSync(inputFile);
+const inputGpx$ = cheerio.load(inputGpx, {xmlMode: true});
+const outputGpx = inputGpx$.xml();
+process.stdout.write(outputGpx);
