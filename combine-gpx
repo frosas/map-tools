@@ -6,5 +6,12 @@ const cheerio = require('cheerio');
 const inputFile = process.argv[2];
 const inputGpx = fs.readFileSync(inputFile);
 const inputGpx$ = cheerio.load(inputGpx, {xmlMode: true});
-const outputGpx = inputGpx$.xml();
+const outputGpx =
+  `<gpx>
+    <trk>
+      <trkseg>
+        ${inputGpx$.xml(inputGpx$('trkpt'))}
+      </trkseg>
+    </trk>
+  </gpx>`;
 process.stdout.write(outputGpx);
