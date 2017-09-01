@@ -5,16 +5,12 @@ const cheerio = require('cheerio');
 
 process.stdout.write(`
   <gpx>
-    <trk>
-      <trkseg>
-        ${process.argv.slice(2).map(inFile => {
-          const inGpx = fs.readFileSync(inFile);
-          const inGpx$ = cheerio.load(inGpx, {xmlMode: true});
-          const outGpx = inGpx$.xml(inGpx$('trkpt'));
-          process.stderr.write('.');
-          return outGpx;
-        })}
-      </trkseg>
-    </trk>
+    ${process.argv.slice(2).map(inFile => {
+      const inGpx = fs.readFileSync(inFile);
+      const inGpx$ = cheerio.load(inGpx, {xmlMode: true});
+      const outGpx = inGpx$.xml(inGpx$('trk'));
+      process.stderr.write('.');
+      return outGpx;
+    })}
   </gpx>
 `);
