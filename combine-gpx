@@ -1,0 +1,7 @@
+#!/usr/bin/env node
+
+const fs = require('fs');
+
+const inputFile = process.argv[2];
+const gpx = fs.readFileSync(inputFile);
+process.stdout.write(gpx);
