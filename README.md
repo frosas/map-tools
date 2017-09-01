@@ -4,5 +4,5 @@
 
 ```bash
 $ npm i
-$ combine-gpx single.gpx > combined.gpx
+$ combine-gpx *.gpx > combined.gpx
 ```

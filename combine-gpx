@@ -3,15 +3,16 @@
 const fs = require('fs');
 const cheerio = require('cheerio');
 
-const inputFile = process.argv[2];
-const inputGpx = fs.readFileSync(inputFile);
-const inputGpx$ = cheerio.load(inputGpx, {xmlMode: true});
-const outputGpx =
-  `<gpx>
+process.stdout.write(`
+  <gpx>
     <trk>
       <trkseg>
-        ${inputGpx$.xml(inputGpx$('trkpt'))}
+        ${process.argv.slice(2).map(inputFile => {
+          const inputGpx = fs.readFileSync(inputFile);
+          const inputGpx$ = cheerio.load(inputGpx, {xmlMode: true});
+          return inputGpx$.xml(inputGpx$('trkpt'));
+        })}
       </trkseg>
     </trk>
-  </gpx>`;
-process.stdout.write(outputGpx);
+  </gpx>
+`);
